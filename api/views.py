@@ -5,9 +5,10 @@ from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
+from rest_framework import generics
 
-
-from .serializers import UserSerializer
+from .serializers import UserSerializer, EmployeeSerializer
+from .models import empModel
 
 import io
 import json
@@ -15,12 +16,11 @@ import json
 
 def test(request):
     form = signupForm()
-    return render(request, 'test.html', {
-        'form':form
-    })
+    return render(request, "test.html", {"form": form})
+
 
 @csrf_exempt
-def addEmployee(request):
+def addUser(request):
     if request.method == "POST":
         jsondata = request.body
         print("###")
@@ -30,13 +30,16 @@ def addEmployee(request):
 
         serializer = UserSerializer(data=pydata)
         print(serializer.error_messages)
-        
+
         if serializer.is_valid():
             print(pydata)
-            res = {'msg': 'user created'}
+            res = {"msg": "user created"}
             jsondata = JSONRenderer().render(res)
             return JsonResponse(jsondata, safe=False)
         else:
             return JsonResponse(serializer.errors, safe=False)
-        
 
+
+class Employee(generics.ListCreateAPIView):
+    serializer_class = EmployeeSerializer
+    queryset = empModel.objects.all()

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class empData(models.Model):
     eid = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     address = models.TextField(max_length=200)
@@ -17,6 +18,7 @@ class empData(models.Model):
 EMP_ROLE = {
     (),
 }
+
 
 class empModel(models.Model):
     eid = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
@@ -35,12 +37,12 @@ class leaveModel(models.Model):
 
 
 A_CHOICES = {
-    ('1', 'present'),
-    ('0', 'absent'),
+    ("1", "present"),
+    ("0", "absent"),
 }
+
+
 class attendanceModel(models.Model):
     date = models.DateField()
     eid = models.OneToOneField(User, on_delete=models.CASCADE)
-    status = models.TextField(choices = A_CHOICES)
-
-
+    status = models.TextField(choices=A_CHOICES)

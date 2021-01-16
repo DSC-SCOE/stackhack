@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .forms import signupForm
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.parsers import JSONParser
@@ -33,8 +33,10 @@ def addUser(request):
 
         if serializer.is_valid():
             print(pydata)
-            res = {"msg": "user created"}
-            jsondata = JSONRenderer().render(res)
+            serializer.save()
+            res = "user created"
+            #jsondata = JSONRenderer().render(res)
+            return HttpResponse(res)
             return JsonResponse(jsondata, safe=False)
         else:
             return JsonResponse(serializer.errors, safe=False)

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .models import empData, empModel, leaveModel, attendanceModel
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
@@ -16,13 +16,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 
-class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
+class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = empModel
         fields = "__all__"
 
 
-class EmployeeDataSerializer(serializers.HyperlinkedModelSerializer):
+class EmployeeDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = empData
         fields = "__all__"

@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from mainApp import forms as modelForms
 from api import models as apiModels
 
+from django.contrib.auth.hashers import make_password
 
 import json
 import requests
@@ -24,23 +25,28 @@ def signUp(request):
         form = modelForms.signupForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            """ jsondata = json.dumps(data)
 
-            URL = "http://127.0.0.1:8000/api/addEmp/"
+            if data['password1'] == data['password2']:
+            
+                data2 = {
+                    'first_name': data['first_name'],
+                    'last_name': data['last_name'],
+                    'email': data['email'],
+                    'username': data['username'],
+                    'password': make_password(data['password1'])
+                }
+                print(data2)
 
-            r = requests.post(url= URL, data= jsondata) """
+                jsondata = json.dumps(data2)
 
-            form.save()
+                URL = "http://127.0.0.1:8000/api/user/"
 
-            uname = data["username"]
-            upass = data["password1"]
+                r = requests.post(url= URL, data= jsondata)
 
-            user = authenticate(username=uname, password=upass)
-
-            if user is not None:
-                login(request, user)
-
-                return redirect("dashboard/")
+                if r.status_code == 200:
+                    return HttpResponse(r)
+                else:
+                    return HttpResponse(r)
 
             return HttpResponse("<h1>Employee added</h1>")
     else:

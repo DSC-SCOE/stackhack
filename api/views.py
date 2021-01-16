@@ -40,6 +40,11 @@ def addUser(request):
             return JsonResponse(serializer.errors, safe=False)
 
 
-class Employee(generics.ListCreateAPIView):
+class Employee_all(generics.ListCreateAPIView):
+    serializer_class = EmployeeSerializer
+    queryset = empModel.objects.all()
+
+
+class Employee_specific(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EmployeeSerializer
     queryset = empModel.objects.all()

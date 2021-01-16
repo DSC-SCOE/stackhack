@@ -28,8 +28,9 @@ class empModel(models.Model):
 
 
 class leaveModel(models.Model):
-    eid = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    cur_date = models.DateField()
+    lid = models.AutoField(primary_key=True)
+    eid = models.ForeignKey(User, on_delete=models.CASCADE)
+    cur_date = models.DateField(auto_now_add=True, blank=True)
     from_date = models.DateField()
     to_date = models.DateField()
     reason = models.TextField(max_length=100)

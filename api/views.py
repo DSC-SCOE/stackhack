@@ -7,8 +7,13 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from rest_framework import generics
 
-from .serializers import UserSerializer, EmployeeSerializer, EmployeeDataSerializer
-from .models import empModel, empData
+from .serializers import (
+    UserSerializer,
+    EmployeeSerializer,
+    EmployeeDataSerializer,
+    LeaveSerializer,
+)
+from .models import empModel, empData, leaveModel
 
 import io
 import json
@@ -58,3 +63,13 @@ class EmployeeData_all(generics.ListCreateAPIView):
 class EmployeeData_specific(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EmployeeDataSerializer
     queryset = empData.objects.all()
+
+
+class Leave_all(generics.ListCreateAPIView):
+    serializer_class = LeaveSerializer
+    queryset = leaveModel.objects.all()
+
+
+class Leave_specific(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = LeaveSerializer
+    queryset = leaveModel.objects.all()

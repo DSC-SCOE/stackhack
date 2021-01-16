@@ -25,3 +25,9 @@ class EmployeeDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = empData
         fields = "__all__"
+
+
+class LeaveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = leaveModel
+        fields = "__all__"

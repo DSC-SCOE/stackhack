@@ -18,4 +18,10 @@ urlpatterns = [
         views.EmployeeData_specific.as_view(),
         name="employeeData_specific",
     ),
+    path("employee/leave/", views.Leave_all.as_view(), name="leave_all"),
+    path(
+        "employee/leave/<int:pk>/",
+        views.Leave_specific.as_view(),
+        name="leave_specific",
+    ),
 ]

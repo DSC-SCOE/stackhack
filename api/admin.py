@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import empData, empModel
+from .models import empData, empModel, leaveModel
 
 
 admin.site.register(empData)
 admin.site.register(empModel)
+admin.site.register(leaveModel)

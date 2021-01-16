@@ -7,8 +7,8 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from rest_framework import generics
 
-from .serializers import UserSerializer, EmployeeSerializer
-from .models import empModel
+from .serializers import UserSerializer, EmployeeSerializer, EmployeeDataSerializer
+from .models import empModel, empData
 
 import io
 import json
@@ -42,9 +42,19 @@ def addUser(request):
 
 class Employee_all(generics.ListCreateAPIView):
     serializer_class = EmployeeSerializer
-    queryset = empModel.objects.all()
+    queryset = empData.objects.all()
 
 
 class Employee_specific(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EmployeeSerializer
     queryset = empModel.objects.all()
+
+
+class EmployeeData_all(generics.ListCreateAPIView):
+    serializer_class = EmployeeDataSerializer
+    queryset = empData.objects.all()
+
+
+class EmployeeData_specific(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = EmployeeDataSerializer
+    queryset = empData.objects.all()

@@ -64,7 +64,12 @@ class Employee_all(generics.ListCreateAPIView):
 class Employee_specific(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EmployeeSerializer
     queryset = empModel.objects.all()
-    permission_classes = [IsAdminUser]
+
+    def get_permissions(self):
+        if self.request.method == "PUT" or self.request.method == "PATCH":
+            return [IsAdminUser()]
+        else:
+            return [IsAuthenticated()]
 
 
 class EmployeeData_all(generics.ListCreateAPIView):

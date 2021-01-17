@@ -21,7 +21,9 @@ EMP_ROLE = {
 
 
 class empModel(models.Model):
-    eid = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    eid = models.OneToOneField(
+        User, on_delete=models.CASCADE, blank=True, primary_key=True
+    )
     role = models.TextField()
     team = models.TextField()
     salary = models.PositiveIntegerField()
@@ -29,12 +31,12 @@ class empModel(models.Model):
 
 class leaveModel(models.Model):
     lid = models.AutoField(primary_key=True)
-    eid = models.ForeignKey(User, on_delete=models.CASCADE)
+    eid = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     cur_date = models.DateField(auto_now_add=True, blank=True)
     from_date = models.DateField()
     to_date = models.DateField()
     reason = models.TextField(max_length=100)
-    discription = models.TextField(max_length=1000)
+    description = models.TextField(max_length=1000)
 
 
 A_CHOICES = {

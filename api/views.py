@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from rest_framework import generics
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 from .serializers import (
     UserSerializer,
@@ -40,7 +41,7 @@ def addUser(request):
             print(pydata)
             serializer.save()
             res = "user created"
-            #jsondata = JSONRenderer().render(res)
+            # jsondata = JSONRenderer().render(res)
             return HttpResponse(res)
             return JsonResponse(jsondata, safe=False)
         else:
@@ -49,17 +50,34 @@ def addUser(request):
 
 class Employee_all(generics.ListCreateAPIView):
     serializer_class = EmployeeSerializer
-    queryset = empData.objects.all()
+    queryset = empModel.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(eid=self.request.user)
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = self.queryset
+        return queryset.filter(eid=user)
 
 
 class Employee_specific(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EmployeeSerializer
     queryset = empModel.objects.all()
+    permission_classes = [IsAdminUser]
 
 
 class EmployeeData_all(generics.ListCreateAPIView):
     serializer_class = EmployeeDataSerializer
     queryset = empData.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(eid=self.request.user)
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = self.queryset
+        return queryset.filter(eid=user)
 
 
 class EmployeeData_specific(generics.RetrieveUpdateDestroyAPIView):
@@ -70,6 +88,17 @@ class EmployeeData_specific(generics.RetrieveUpdateDestroyAPIView):
 class Leave_all(generics.ListCreateAPIView):
     serializer_class = LeaveSerializer
     queryset = leaveModel.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(eid=self.request.user)
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = self.queryset
+        if user.is_staff:
+            return queryset.filter()
+        else:
+            return queryset.filter(eid=user)
 
 
 class Leave_specific(generics.RetrieveUpdateDestroyAPIView):

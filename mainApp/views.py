@@ -96,8 +96,10 @@ def editProfile(request):
         
         if request.method == "POST":
             form = modelForms.empForm(request.POST, request.FILES)
-
+            print('####')
             if form.is_valid():
+                form.eid = request.user.id
+                print(form.eid)
                 form.save()
                 return HttpResponse('form is valid')
             

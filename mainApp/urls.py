@@ -13,8 +13,9 @@ urlpatterns = [
     path('logout/', views.Logout, name='logout'),
 
 
-    path('verify/emp/<int:id>', views.verifyEmp, name='verifyemp')
-
+    path('verify/emp/<int:id>', views.verifyEmp, name='verifyemp'),
+    path('view/employees/', views.empList, name='empList'),
+    path('view/employee/<int:id>', views.showEmp, name='showemp'),
 
 ]
 

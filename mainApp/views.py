@@ -205,4 +205,26 @@ def verifyEmp(request, id):
 
 
 def empList(request):
-    pass
+    emplist = apiModels.empList.objects.all().filter(status=True)
+
+    return render(request, 'emplist.html', {
+        'data':emplist,
+    })
+
+def showEmp(request, id):
+    
+    if request.method == "POST":
+        form = modelForms.showEmpModel(request.POST)
+        
+        if form.is_valid():
+            #form.save()
+            messages.add_message(request, messages.INFO, 'Role have been assigned')
+            return redirect('dash')
+    
+    
+    form = modelForms.showEmpModel(initial={
+        'eid':id,
+    })
+    return render(request, "test.html", {
+        'form':form
+    })

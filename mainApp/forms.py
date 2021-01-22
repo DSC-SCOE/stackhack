@@ -33,3 +33,18 @@ class userInfo(forms.ModelForm):
         labels = {
             'email' : 'Email',
         }
+
+class showEmpModel(forms.ModelForm):
+
+    class Meta:
+        model = apiModels.empModel
+        fields = "__all__"
+        labels = {
+            'eid' : 'Username',
+        }
+        widgets = {
+            'eid' : forms.Select(attrs={'disabled':'disabled'}),
+            'role' : forms.TextInput(),
+            'team' : forms.TextInput(),
+
+        }

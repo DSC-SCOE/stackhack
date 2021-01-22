@@ -202,3 +202,7 @@ def verifyEmp(request, id):
         'form':form,
     })
     return HttpResponse(form)
+
+
+def empList(request):
+    pass

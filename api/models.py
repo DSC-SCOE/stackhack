@@ -12,12 +12,21 @@ class empData(models.Model):
     degree_marks = models.PositiveIntegerField()
     degree_cert = models.FileField(blank=True)
     resume = models.FileField(blank=True)
-    status = models.BooleanField(default=False)
+    status = models.TextField(default=False, max_length=500)
 
 
 EMP_ROLE = {
     (),
 }
+
+
+class empList(models.Model):
+    eid = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    date = models.DateField(null=True)
+    status = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.eid)
 
 
 class empModel(models.Model):

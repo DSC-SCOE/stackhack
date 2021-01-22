@@ -10,7 +10,12 @@ urlpatterns = [
     path('dashboard/', views.dash, name="dash"),
     path('dashboard/', views.dash, name="profile"),
     path('emp/edit/', views.editProfile, name="edit_profile"),
-    path('logout/', views.Logout, name='logout')
+    path('logout/', views.Logout, name='logout'),
+
+
+    path('verify/emp/<int:id>', views.verifyEmp, name='verifyemp')
+
+
 ]
 
 

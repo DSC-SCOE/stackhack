@@ -89,7 +89,27 @@ def Login(request):
 
 def dash(request):
     if request.user.is_authenticated:
-        form = modelForms.empForm()
+        return redirect('edit_profile')
+
+def editProfile(request):
+    if request.user.is_authenticated:
+        
+        if request.method == "POST":
+            form = modelForms.empForm(request.POST, request.FILES)
+
+            if form.is_valid():
+                form.save()
+                return HttpResponse('form is valid')
+            
+            return render(request, "test.html", {
+                "form": form,
+            })
+        
+        
+        form = modelForms.empForm(initial={
+            'eid':request.user.id,
+        })
+    
 
         return render(
             request,

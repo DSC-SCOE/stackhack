@@ -4,7 +4,6 @@ from django.contrib.auth.forms import UserCreationForm
 
 from api import models as apiModels
 class signupForm(UserCreationForm):
-    
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email','username','password1', 'password2',) 
@@ -17,4 +16,5 @@ class empForm(forms.ModelForm):
 
     class Meta:
         model = apiModels.empData
-        exclude = ['eid', 'status']
+        #fields = "__all__"
+        exclude = ('eid', 'status')
